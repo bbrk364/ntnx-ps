@@ -1,1 +1,1 @@
-connect-nutanixcluster 
+connect-nutanixcluster -AcceptInvalidSSLCerts
