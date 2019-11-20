@@ -20,10 +20,12 @@ function List-VMs
 $VMs = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxvm.ps1
 invoke-expression $($VMs.content)
 }
+
 function ClusDatastate
 {
+$localID = "get-ntnxcluster |select uuid"
         Write-Host "Script Block"
-Get-NTNXClusterDataState
+Get-NTNXClusterDataState -id $localID
 }
 
 do
