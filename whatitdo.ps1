@@ -23,7 +23,7 @@ invoke-expression $($VMs.content)
 
 function ClusDatastate
 {
-$localID = "get-ntnxcluster |select uuid"
+$localID = get-ntnxcluster |select uuid
         Write-Host "Script Block"
 Get-NTNXClusterDataState -id $localID
 }
