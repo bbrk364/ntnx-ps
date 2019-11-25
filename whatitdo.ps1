@@ -51,6 +51,9 @@ do
         '2' {
                 List-Hosts
             }
+        '3' {
+                List-Containers
+            }
         'q' {
                  return
             }
