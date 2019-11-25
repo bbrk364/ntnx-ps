@@ -32,7 +32,7 @@ invoke-expression $($hosts.content)
 
 do
 {
-    Show-Menu –Title 'My Menu'
+    Show-Menu –Title 'Nutanix Powershell CMDLETS MENU'
     $input = Read-Host "what do you want to do?"
     switch ($input)
     {
