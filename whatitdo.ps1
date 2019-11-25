@@ -6,7 +6,7 @@ function Show-Menu
     Clear-Host
     Write-Host "================ $Title ================"
     Write-Host "1: Press '1' to list all the Vms."
-    Write-Host "2: Press '2' to do next thing."
+    Write-Host "2: Press '2' to list all the hosts."
     Write-Host "3: Press '3' to do next thing"
     Write-Host "4: Press '4' to do next thing "
     Write-Host "5: Press '5' to do next thing "
@@ -24,7 +24,7 @@ invoke-expression $($VMs.content)
 function List-Hosts
 {
 
-Write-Host "Script Block to Display all the VMs"
+Write-Host "Script Block to Display all the HOSTS"
 $hosts = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1"
 invoke-expression $($hosts.content)
 
