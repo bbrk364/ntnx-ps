@@ -16,7 +16,7 @@ function Show-Menu
 
 function List-VMs
 {
-        Write-Host "Script Block to Display all the VMs"
+Write-Host "Script Block to Display all the VMs"
 $VMs = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxvm.ps1
 invoke-expression $($VMs.content)
 }
@@ -24,6 +24,7 @@ invoke-expression $($VMs.content)
 function List-Hosts
 {
 
+Write-Host "Script Block to Display all the VMs"
 $hosts = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1"
 invoke-expression $($hosts.content)
 
@@ -39,7 +40,7 @@ do
                 List-Vms
             }
         '2' {
-                NEXT THING
+                List-Hosts
             }
         'q' {
                  return
