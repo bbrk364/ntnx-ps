@@ -21,10 +21,11 @@ $VMs = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps
 invoke-expression $($VMs.content)
 }
 
-function EDIT
+function List-Hosts
 {
 
-EDIT
+$hosts = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1"
+invoke-expression $($hosts.content)
 
 }
 
