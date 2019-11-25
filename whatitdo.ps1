@@ -1,12 +1,12 @@
 function Show-Menu
 {
     param (
-        [string]$Title = 'My Menu'
+        [string]$Title = 'Nutanix Powershell CMDLETS MENU'
     )
     Clear-Host
     Write-Host "================ $Title ================"
     Write-Host "1: Press '1' to list all the Vms."
-    Write-Host "2: Press '2' to get the cluster data state."
+    Write-Host "2: Press '2' to do next thing."
     Write-Host "3: Press '3' to do next thing"
     Write-Host "4: Press '4' to do next thing "
     Write-Host "5: Press '5' to do next thing "
@@ -21,11 +21,11 @@ $VMs = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps
 invoke-expression $($VMs.content)
 }
 
-function ClusDatastate
+function EDIT
 {
-$localID = get-ntnxcluster |select uuid
-        Write-Host "Script Block"
-Get-NTNXClusterDataState -id $localID
+
+EDIT
+
 }
 
 do
@@ -38,7 +38,7 @@ do
                 List-Vms
             }
         '2' {
-                Get-clusterdatastate
+                NEXT THING
             }
         'q' {
                  return
