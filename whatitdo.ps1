@@ -5,7 +5,7 @@ function Show-Menu
     )
     Clear-Host
     Write-Host "================ $Title ================"
-    Write-Host "X: Press 'X' to connect to a Nutanix Cluster
+    Write-Host "X: Press 'X' to connect to a Nutanix Cluster."
     Write-Host "1: Press '1' to list all the Vms."
     Write-Host "2: Press '2' to list all the hosts."
     Write-Host "3: Press '3' to list containers"
@@ -15,9 +15,9 @@ function Show-Menu
     Write-Host "Q: Press 'Q' to quit."
 }
 
-function Connect-Cluster
+function Connect-NTNXcluster
 {
-Write-Host "Script Block to Display all the VMs"
+Write-Host "Script Block to Connect to cluster"
 $CONNECT = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/connect-nutanixcluster.ps1
 invoke-expression $($connect.content)
 }
@@ -44,13 +44,12 @@ invoke-expression $($containers.content)
 }
 
 do
-
 {
     Show-Menu –Title 'Nutanix Powershell CMDLETS MENU'
     $input = Read-Host "what do you want to do?"
     switch ($input)
-{
     {
+    
         'X' {               
                 Connect-NTNXcluster
             }
