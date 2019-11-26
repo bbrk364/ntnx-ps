@@ -1,67 +1,86 @@
-function Show-Menu
-{
-    param (
-        [string]$Title = 'Nutanix Powershell CMDLETS MENU'
-    )
-    Clear-Host
-    Write-Host "================ $Title ================"
-    Write-Host "1: Press '1' to list all the Vms."
-    Write-Host "2: Press '2' to list all the hosts."
-    Write-Host "3: Press '3' to list containers"
-    Write-Host "4: Press '4' to do next thing "
-    Write-Host "5: Press '5' to do next thing "
-    Write-Host "6: Press '6' to do next thing "
-    Write-Host "Q: Press 'Q' to quit."
-}
-
-
-function List-VMs
-{
-Write-Host "Script Block to Display all the VMs"
-$VMs = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxvm.ps1
-invoke-expression $($VMs.content)
-}
-
-function List-Hosts
-{
-Write-Host "Script Block to Display all the HOSTS"
-$hosts = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1"
-invoke-expression $($hosts.content)
-}
-
-function List-Containers
-{
-Write-Host "Script Block to Display all the Containers"
-$containers = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-container-details.ps1"
-invoke-expression $($containers.content)
-}
-
-do
-{
-    Show-Menu –Title 'Nutanix Powershell CMDLETS MENU'
-    $input = Read-Host "what do you want to do?"
-    switch ($input)
-    {
-    
-        
-        '1' {               
-                List-Vms
-            }
-        '2' {
-                List-Hosts
-            }
-        '3' {
-                List-Containers
-            }
-        'q' {
-                 return
-            }
+function mainMenu {
+    $mainMenu = 'X'
+    while($mainMenu -ne ''){
+        Clear-Host
+        Write-Host "`n`t`t Nutanix Powershell CMDLets`n"
+        Write-Host -ForegroundColor Cyan "Main Menu"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " Connect to your Nutanix Cluster"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " Im already connected"
+        $mainMenu = Read-Host "`nSelection (leave blank to quit)"
+        # Connect to cluster 
+        if($mainMenu -eq 1){
+            subMenu1
+        }
+        # Launch submenu2
+        if($mainMenu -eq 2){
+            subMenu2
+        }
     }
-    pause
 }
-until ($input -eq 'q')
 
-$myvarLoaded = Get-PSSnapin -Name NutanixCmdletsPSSnapin -ErrorAction SilentlyContinue | % {$_.Name}
-if ($myvarLoaded -eq $null){Add-PSSnapin NutanixCmdletsPSSnapin}
-$server = read-host "Your NTNX CLUSTER IP"
-Connect-NTNXCluster -Server $server -AcceptInvalidSSLCerts -ForcedConnection
+function subMenu1 {
+    $subMenu1 = 'X'
+    while($subMenu1 -ne ''){
+        Clear-Host
+        Write-Host "`n`t`t Connect to your Nutanix Cluster`n"
+        Write-Host -ForegroundColor Cyan "Sub Menu 1"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+		     Write-Host -ForegroundColor DarkCyan "Connect to your cluster"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+		     Write-Host -ForegroundColor DarkCyan "Proceed to CMDlets"
+
+        $subMenu1 = Read-Host "`nSelection (leave blank to quit)"
+        $timeStamp = Get-Date -Uformat %m%d%y%H%M
+        # Option 1
+        if($subMenu1 -eq 1){
+		    $myvarLoaded = Get-PSSnapin -Name NutanixCmdletsPSSnapin -ErrorAction SilentlyContinue | % {$_.Name}
+            if ($myvarLoaded -eq $null){Add-PSSnapin NutanixCmdletsPSSnapin}
+            $server = read-host "Your NTNX CLUSTER IP"
+            Connect-NTNXCluster -Server $server -AcceptInvalidSSLCerts -ForcedConnection
+            write-host "Connecting to Cluster..."
+
+        }
+        # Option 2
+        if($subMenu1 -eq 2){
+            subMenu2
+        }
+    }
+}
+
+function subMenu2 {
+    $subMenu2 = 'X'
+    while($subMenu2 -ne ''){
+        Clear-Host
+        Write-Host "`n`t`t Nutanix Powershell CMDlets`n"
+        Write-Host -ForegroundColor Cyan "Sub Menu 2"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " List VMs"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan "List Hosts"
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "3"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan "List Containers"	
+        $subMenu2 = Read-Host "`nSelection (leave blank to quit)"
+        $timeStamp = Get-Date -Uformat %m%d%y%H%M
+        # Option 1
+        if($subMenu2 -eq 1){
+            Write-Host "Gathering VM's sit tight"
+            $VMs = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxvm.ps1
+            invoke-expression $($VMs.content)
+        }
+        # Option 2
+        if($subMenu2 -eq 2){
+            Write-Host "Gathering Hosts sit tight"
+            $hosts = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1"
+            invoke-expression $($hosts.content)
+		 # Option 3
+        if($subMenu2 -eq 3){
+            Write-Host "Gathering containers sit tight"
+            $containers = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-container-details.ps1"
+            invoke-expression $($containers.content)
+        }
+    }
+}
+
+mainMenu
