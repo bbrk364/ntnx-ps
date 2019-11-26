@@ -49,7 +49,7 @@ do
     Show-Menu –Title 'Nutanix Powershell CMDLETS MENU'
     $input = Read-Host "what do you want to do?"
     switch ($input)
-}
+{
     {
         'X' {               
                 Connect-NTNXcluster
