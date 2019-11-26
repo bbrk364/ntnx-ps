@@ -15,7 +15,7 @@ function Show-Menu
     Write-Host "Q: Press 'Q' to quit."
 }
 
-function List-VMs
+function Connect-Cluster
 {
 Write-Host "Script Block to Display all the VMs"
 $CONNECT = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/connect-nutanixcluster.ps1
@@ -31,20 +31,16 @@ invoke-expression $($VMs.content)
 
 function List-Hosts
 {
-
 Write-Host "Script Block to Display all the HOSTS"
 $hosts = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1"
 invoke-expression $($hosts.content)
-
 }
 
 function List-Containers
 {
-
 Write-Host "Script Block to Display all the Containers"
 $containers = invoke-webrequest "https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-container-details.ps1"
 invoke-expression $($containers.content)
-
 }
 
 do
