@@ -53,7 +53,7 @@ do
     $input = Read-Host "what do you want to do?"
     switch ($input)
     {
-       'X' {               
+        'X' {               
                 Connect-NTNXcluster
             }
         '1' {               
