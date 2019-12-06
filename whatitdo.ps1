@@ -42,7 +42,7 @@ function subMenu2 {
     while($subMenu2 -ne ''){
         Clear-Host
         Write-Host "`n`t`t Nutanix Powershell CMDlets`n"
-        Write-Host -ForegroundColor Cyan "Sub Menu 2"
+        Write-Host -ForegroundColor Cyan "List Items"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " List VMs"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
