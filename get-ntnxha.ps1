@@ -1,0 +1,2 @@
+$faulttolerance = get-ntnxha
+$faulttolerance
