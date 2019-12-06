@@ -3,7 +3,7 @@ function mainMenu {
     while($mainMenu -ne ''){
         Clear-Host
         Write-Host "`n`t`t Nutanix Powershell CMDLets`n"
-        Write-Host -ForegroundColor Cyan "Main Menu"
+        Write-Host -ForegroundColor Cyan "Connect Options"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " Connect to your Nutanix Cluster"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
@@ -22,19 +22,12 @@ function mainMenu {
 
 function subMenu1 {
     $subMenu1 = 'X'
-    while($subMenu1 -ne ''){
+    if($subMenu1 -ne ''){
         Clear-Host
         Write-Host "`n`t`t Connect to your Nutanix Cluster`n"
-        Write-Host -ForegroundColor Cyan "Sub Menu 1"
-        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
-		     Write-Host -ForegroundColor DarkCyan "Connect to your cluster"
-        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
-		     Write-Host -ForegroundColor DarkCyan "Proceed to CMDlets"
+        Write-Host -ForegroundColor Cyan "Enter Nutanix Cluster IP"
+		
 
-        $subMenu1 = Read-Host "`nSelection (leave blank to quit)"
-        $timeStamp = Get-Date -Uformat %m%d%y%H%M
-        # Option 1
-        if($subMenu1 -eq 1){
 		    $myvarLoaded = Get-PSSnapin -Name NutanixCmdletsPSSnapin -ErrorAction SilentlyContinue | % {$_.Name}
             if ($myvarLoaded -eq $null){Add-PSSnapin NutanixCmdletsPSSnapin}
             $server = read-host "Your NTNX CLUSTER IP"
@@ -42,13 +35,8 @@ function subMenu1 {
             write-host "Connecting to Cluster..."
 
         }
-        # Option 2
-        if($subMenu1 -eq 2){
-            subMenu2
-        }
-    }
-}
 
+}
 function subMenu2 {
     $subMenu2 = 'X'
     while($subMenu2 -ne ''){
@@ -61,6 +49,8 @@ function subMenu2 {
             Write-Host -ForegroundColor DarkCyan " List Hosts"
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "3"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " List Containers"
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "4"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " List Disks"
         $subMenu2 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
         # Option 1
@@ -88,6 +78,15 @@ function subMenu2 {
             invoke-expression $($Containers.content)
 	    Start-Sleep -s 5
 	         	Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+		# Option 4
+        if($subMenu2 -eq 4){
+            Write-Host "Gathering Disks sit tight"
+            $Disks = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxdisk.ps1
+            invoke-expression $($Disks.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
             [void][System.Console]::ReadKey($true)
         }
