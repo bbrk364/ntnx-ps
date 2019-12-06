@@ -43,6 +43,8 @@ function subMenu2 {
         Clear-Host
         Write-Host "`n`t`t Nutanix Powershell CMDlets`n"
         Write-Host -ForegroundColor Cyan "List Items"
+		Write-Host -ForegroundColor Red "These cmdlets do not make changes, please select advanced for more cmdlets"
+		
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " List VMs"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
@@ -51,6 +53,8 @@ function subMenu2 {
             Write-Host -ForegroundColor DarkCyan " List Containers"
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "4"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " List Disks"
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "5"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " Advanced CMDLets`n"
         $subMenu2 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
         # Option 1
@@ -90,7 +94,23 @@ function subMenu2 {
             Write-Host "`nPress any key to return to the previous menu"
             [void][System.Console]::ReadKey($true)
         }
+		# Option 5
+        if($subMenu2 -eq 5){
+            advancedMenu1
+		}	
+        
     }
 }
+function advancedMenu1 {
+
+        Clear-Host
+        Write-Host "`n`t`t COMING SOON`n"
+        Write-Host -ForegroundColor Cyan "MORE TO COME"
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+
+        }
+
+
 
 mainMenu
