@@ -54,8 +54,10 @@ function subMenu2 {
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "3"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " List Containers"
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "4"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
-            Write-Host -ForegroundColor DarkCyan " List Disks"
+            Write-Host -ForegroundColor DarkCyan " List Networks"
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "5"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " List Disks"
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "6"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " Advanced CMDLets`n"
         $subMenu2 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
@@ -107,6 +109,15 @@ function subMenu2 {
         }
 		# Option 5
         if($subMenu2 -eq 5){
+            Write-Host "Gathering Networks sit tight"
+            $Disks = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxNetwork.ps1
+            invoke-expression $($Disks.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+		# Option 5
+        if($subMenu2 -eq 6){
             advancedMenu1
 		}	
         
