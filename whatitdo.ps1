@@ -110,8 +110,8 @@ function subMenu2 {
 		# Option 5
         if($subMenu2 -eq 5){
             Write-Host "Gathering Networks sit tight"
-            $Disks = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxNetwork.ps1
-            invoke-expression $($Disks.content)
+            $Networks = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxNetwork.ps1
+            invoke-expression $($Networks.content)
 			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
             [void][System.Console]::ReadKey($true)
