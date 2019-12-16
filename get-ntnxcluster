@@ -1,0 +1,2 @@
+$cluster = get-ntnxcluster |select ID, name, clusterExternalIPAddress, ClusterExternalDataServicesIPAddress, numNodes, blockSerials, version, exteranlsubnet, interanlsubnet, nccversion, globalNfsWhiteList, hypervisorTypes, faultToleranceDomainType|ft -autosize
+$cluster
