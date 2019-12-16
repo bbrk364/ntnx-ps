@@ -45,6 +45,8 @@ function subMenu2 {
         Write-Host -ForegroundColor Cyan "List Items"
 		Write-Host -ForegroundColor Red "These cmdlets do not make changes, please select advanced for more cmdlets"
 		
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "0"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " Cluster details"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " List VMs"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
@@ -57,6 +59,15 @@ function subMenu2 {
             Write-Host -ForegroundColor DarkCyan " Advanced CMDLets`n"
         $subMenu2 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
+	   # Option 0
+        if($subMenu2 -eq 0){
+            Write-Host "Cluster Details"
+            $Cluster = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxcluster.ps1
+            invoke-expression $($Cluster.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
         # Option 1
         if($subMenu2 -eq 1){
             Write-Host "Gathering VM's sit tight"
