@@ -1,2 +1,2 @@
-$networks = get-ntnxnetwork |select vlanId, name, vswitchName|format-list
+$networks = get-ntnxnetwork |select vlanId, name, vswitchName|ft
 $networks
