@@ -93,8 +93,7 @@ function subMenu2 {
             Write-Host "Gathering Containers sit tight"
             $Containers = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-container-details.ps1
             invoke-expression $($Containers.content)
-	    Start-Sleep -s 5
-	         	Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+	        Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
             [void][System.Console]::ReadKey($true)
         }
