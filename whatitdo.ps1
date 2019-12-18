@@ -145,7 +145,7 @@ function advancedMenu1 {
 	   # Option 0
         if($advancedMenu1 -eq 0){
             Write-Host "Enter New VM Configuration"
-            $NewVM = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxcluster.ps1
+            $NewVM = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-vm.ps1
             invoke-expression $($NewVM.content)
 			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
