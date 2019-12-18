@@ -181,7 +181,7 @@ function advancedMenu1 {
 		# Option 4
         if($advancedMenu1 -eq 4){
             Write-Host "New Network"
-            $NewNetwork = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxdisk.ps1
+            $NewNetwork = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-network.ps1
             invoke-expression $($NewNetwork.content)
 			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
