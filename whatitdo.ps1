@@ -154,7 +154,7 @@ function advancedMenu1 {
         # Option 1
         if($advancedMenu1 -eq 1){
             Write-Host "Creating New Container stand-by"
-            $NewContainer = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxvm.ps1
+            $NewContainer = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-container.ps1
             invoke-expression $($NewContainer.content)
 			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
