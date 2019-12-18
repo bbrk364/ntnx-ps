@@ -123,14 +123,74 @@ function subMenu2 {
     }
 }
 function advancedMenu1 {
-
+    $advancedMenu1 = 'X'
+    while($advancedMenu1 -ne ''){
         Clear-Host
-        Write-Host "`n`t`t COMING SOON`n"
-        Write-Host -ForegroundColor Cyan "MORE TO COME"
+        Write-Host "`n`t`t Advanced Nutanix Powershell CMDlets`n"
+		Write-Host -ForegroundColor Red "These cmdlets do make changes, please consult PowerShell CMDlets reference before use"
+		Write-Host -ForegroundColor Blue "https://portal.nutanix.com/#/page/docs/details?targetId=API-Ref-AOS-v55:PowerShell-Cmdlets-Reference"
+		
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "0"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " New VM"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " New Container"
+        Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " Start Maintenance Mode"
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "3"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " Stop Maintenance Mode"
+		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "4"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " New Network (ie. portgroup / vlan)"
+        $advancedMenu1 = Read-Host "`nSelection (leave blank to quit)"
+        $timeStamp = Get-Date -Uformat %m%d%y%H%M
+	   # Option 0
+        if($advancedMenu1 -eq 0){
+            Write-Host "Enter New VM Configuration"
+            $NewVM = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxcluster.ps1
+            invoke-expression $($NewVM.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
             [void][System.Console]::ReadKey($true)
-
         }
+        # Option 1
+        if($advancedMenu1 -eq 1){
+            Write-Host "Creating New Container stand-by"
+            $NewContainer = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxvm.ps1
+            invoke-expression $($NewContainer.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+        # Option 2
+        if($advancedMenu1 -eq 2){
+            Write-Host "Enter Host to Enter Maintenance Mode"
+            $HostsMaintenanceMode = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1
+            invoke-expression $($HostsMaintenanceMode.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+	   # Option 3
+        if($advancedMenu1 -eq 3){
+            Write-Host "Stop Maintenance Mode"
+            $StopMaintenanceMode = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-container-details.ps1
+            invoke-expression $($StopMaintenanceMode.content)
+	        Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+		# Option 4
+        if($advancedMenu1 -eq 4){
+            Write-Host "New Network"
+            $NewNetwork = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxdisk.ps1
+            invoke-expression $($NewNetwork.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+	
+        
+    }
+}
 
 
 
