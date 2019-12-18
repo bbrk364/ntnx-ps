@@ -128,7 +128,7 @@ function advancedMenu1 {
         Clear-Host
         Write-Host "`n`t`t Advanced Nutanix Powershell CMDlets`n"
 		Write-Host -ForegroundColor Red "These cmdlets do make changes, please consult PowerShell CMDlets reference before use"
-		Write-Host -ForegroundColor Blue "https://portal.nutanix.com/#/page/docs/details?targetId=API-Ref-AOS-v55:PowerShell-Cmdlets-Reference"
+		Write-Host -ForegroundColor Yellow "https://portal.nutanix.com/#/page/docs/details?targetId=API-Ref-AOS-v55:PowerShell-Cmdlets-Reference"
 		
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "0"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " New VM"
