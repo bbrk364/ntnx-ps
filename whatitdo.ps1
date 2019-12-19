@@ -192,7 +192,7 @@ function advancedMenu1 {
 			# Option 5
         if($advancedMenu1 -eq 5){
             Write-Host "Create multiple VM's by importing csv"
-	    Write-Host -ForegroundColor Yellow "DOWNLOAD LINK FOR CSV EXAMPLE"
+	    Write-Host -ForegroundColor Yellow "https://drive.google.com/file/d/1yvxXVAc7mn4NHrZmv02boTb4lVhV4JJK/view?usp=sharing"
 		
             $VMsfromCSV = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-vm-from-csv.ps1
             invoke-expression $($VMsfromCSV.content)
