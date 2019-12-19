@@ -140,6 +140,8 @@ function advancedMenu1 {
             Write-Host -ForegroundColor DarkCyan " Stop Maintenance Mode"
 		Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "4"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " New Network (ie. portgroup / vlan)"
+	 Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "5"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
+            Write-Host -ForegroundColor DarkCyan " New VM's From CSV"
         $advancedMenu1 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
 	   # Option 0
@@ -183,6 +185,17 @@ function advancedMenu1 {
             Write-Host "New Network"
             $NewNetwork = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-network.ps1
             invoke-expression $($NewNetwork.content)
+			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
+            Write-Host "`nPress any key to return to the previous menu"
+            [void][System.Console]::ReadKey($true)
+        }
+			# Option 5
+        if($advancedMenu1 -eq 5){
+            Write-Host "Create multiple VM's by importing csv"
+	    Write-Host -ForegroundColor Yellow "DOWNLOAD LINK FOR CSV EXAMPLE"
+		
+            $VMsfromCSV = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-vm-from-csv.ps1
+            invoke-expression $($VMsfromCSV.content)
 			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
             [void][System.Console]::ReadKey($true)
