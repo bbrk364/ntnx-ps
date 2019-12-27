@@ -165,7 +165,7 @@ function advancedMenu1 {
         # Option 2
         if($advancedMenu1 -eq 2){
             Write-Host "Enter Host to Enter Maintenance Mode"
-            $HostsMaintenanceMode = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxhost.ps1
+            $HostsMaintenanceMode = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/start-maintenancemode.ps1
             invoke-expression $($HostsMaintenanceMode.content)
 			Write-Host -ForegroundColor DarkCyan "`nScript execution complete."
             Write-Host "`nPress any key to return to the previous menu"
