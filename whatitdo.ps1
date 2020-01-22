@@ -1,7 +1,20 @@
+<#
+    .SYNOPSIS
+        Menu Driven CMDlets 
+    .DESCRIPTION
+        Main Menu gives option to connect to a cluster or proceed to cmdlets. Menu will have a basic menu with get-commands, where the advanced 
+		menu will make changes. 
+#>
+
+
+
+
 function mainMenu {
     $mainMenu = 'X'
     while($mainMenu -ne ''){
         Clear-Host
+		#Setting the first menu options
+		
         Write-Host "`n`t`t Nutanix Powershell CMDLets`n"
         Write-Host -ForegroundColor Cyan "Connect Options"
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "1"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
@@ -9,11 +22,12 @@ function mainMenu {
         Write-Host -ForegroundColor DarkCyan -NoNewline "`n["; Write-Host -NoNewline "2"; Write-Host -ForegroundColor DarkCyan -NoNewline "]"; `
             Write-Host -ForegroundColor DarkCyan " Im already connected"
         $mainMenu = Read-Host "`nSelection (leave blank to quit)"
-        # Connect to cluster 
+        #IF statements below for the selected option above
+		#subMenu1 is to the connect-cluster command
         if($mainMenu -eq 1){
             subMenu1
         }
-        # Launch submenu2
+        #subMenu2 takes you to the basic get-commands
         if($mainMenu -eq 2){
             subMenu2
         }
@@ -31,6 +45,8 @@ function subMenu1 {
 		    $myvarLoaded = Get-PSSnapin -Name NutanixCmdletsPSSnapin -ErrorAction SilentlyContinue | % {$_.Name}
             if ($myvarLoaded -eq $null){Add-PSSnapin NutanixCmdletsPSSnapin}
             $server = read-host "Your NTNX CLUSTER IP"
+			#Connect-nutanix cluster command with server variable
+			
             Connect-NTNXCluster -Server $server -AcceptInvalidSSLCerts -ForcedConnection
             write-host "Connecting to Cluster..."
 
@@ -41,6 +57,8 @@ function subMenu2 {
     $subMenu2 = 'X'
     while($subMenu2 -ne ''){
         Clear-Host
+		##subMenu2 is the basic get-cmdlets can be expanded upon ##
+		
         Write-Host "`n`t`t Nutanix Powershell CMDlets`n"
         Write-Host -ForegroundColor Cyan "List Items"
 		Write-Host -ForegroundColor Red "These cmdlets do not make changes, please select advanced for more cmdlets"
@@ -61,7 +79,16 @@ function subMenu2 {
             Write-Host -ForegroundColor DarkCyan " Advanced CMDLets`n"
         $subMenu2 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
-	   # Option 0
+	   <# 
+	   
+        .SYNOPSIS
+            Option 0 runs the script from the gethub repo currently
+
+        .EXAMPLE
+            $cluster = get-ntnxcluster |select ID, name, clusterExternalIPAddress, ClusterExternalDataServicesIPAddress, numNodes, blockSerials, version, externalsubnet, internalsubnet, nccversion, globalNfsWhiteList, hypervisorTypes, faultToleranceDomainType|format-list
+            $cluster
+    #>
+	   
         if($subMenu2 -eq 0){
             Write-Host "Cluster Details"
             $Cluster = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps/master/get-ntnxcluster.ps1
@@ -126,6 +153,8 @@ function advancedMenu1 {
     $advancedMenu1 = 'X'
     while($advancedMenu1 -ne ''){
         Clear-Host
+	   ##advancedMenu1 runs cmdlets that will make changes to uvm's and the cluster  ##
+		
         Write-Host "`n`t`t Advanced Nutanix Powershell CMDlets`n"
 		Write-Host -ForegroundColor Red "These cmdlets do make changes, please consult PowerShell CMDlets reference before use"
 		Write-Host -ForegroundColor Yellow "https://portal.nutanix.com/#/page/docs/details?targetId=API-Ref-AOS-v55:PowerShell-Cmdlets-Reference"
@@ -144,7 +173,17 @@ function advancedMenu1 {
             Write-Host -ForegroundColor DarkCyan " New VM's From CSV"
         $advancedMenu1 = Read-Host "`nSelection (leave blank to quit)"
         $timeStamp = Get-Date -Uformat %m%d%y%H%M
-	   # Option 0
+   <# 
+	   
+        .SYNOPSIS
+            Option 0 runs the script from the gethub repo currently
+
+        .EXAMPLE
+            $VMName = Read-host -prompt 'Enter the Name of the VM'
+            $vCPUs = Read-host -prompt 'Enter the # of vCPUs'
+            $ramMB = Read-host -prompt 'Enter the amount of RAM in MB (example = 2048 for 2GB)'
+            New-NTNXVirtualMachine -Name $VMName -NumVcpus $vCPUs -MemoryMb $ramMB
+    #>
         if($advancedMenu1 -eq 0){
             Write-Host "Enter New VM Configuration"
             $NewVM = invoke-webrequest https://raw.githubusercontent.com/cloudcor-ntnx/ntnx-ps-advanced/master/new-vm.ps1
